@@ -70,7 +70,7 @@ class MiniRocketMultivariate(_PanelToTabularTransformer):
         self
         """
         X = check_X(X, coerce_to_numpy=True) #.astype(np.float32)
-        *_, n_timepoints = np.max(np.array([x.shape for x in X]), axis=0)
+        *_, n_timepoints = np.min(np.array([x.shape for x in X]), axis=0)
         if n_timepoints < 9:
             raise ValueError(
                 (
@@ -132,7 +132,7 @@ def _fit_biases_multi(
         np.random.seed(seed)
 
     n_instances = X.shape
-    n_columns, n_timepoints = np.max(np.array([x.shape for x in X]), axis=0)
+    n_columns, n_timepoints = np.min(np.array([x.shape for x in X]), axis=0)
 
     # equivalent to:
     # >>> from itertools import combinations
@@ -275,7 +275,7 @@ def _fit_multi(X, num_features=10_000, max_dilations_per_kernel=32, seed=None):
     if seed is not None:
         np.random.seed(seed)
 
-    n_columns, n_timepoints = np.max(np.array([x.shape for x in X]), axis=0)
+    n_columns, n_timepoints = np.min(np.array([x.shape for x in X]), axis=0)
 
     num_kernels = 84
 
